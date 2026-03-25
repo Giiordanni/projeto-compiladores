@@ -1,0 +1,73 @@
+package com.compiler;
+
+import com.compiler.parser.MyLangLexer;
+import com.compiler.parser.MyLangParser;
+import com.compiler.visitor.CodeGenerator;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
+
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.*;
+
+public class Main {
+    public static void main( String[] args ) {
+        String inputFile = (args.length > 0) ? args[0] : "program.txt";
+
+        try {
+            // ── 1. Leitura do arquivo-fonte ──────────────────────────────────
+            CharStream input = CharStreams.fromFileName(inputFile);
+
+            // ── 2. Análise Léxica ────────────────────────────────────────────
+            MyLangLexer lexer = new MyLangLexer(input);
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(new ThrowingErrorListener("Léxico"));
+
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+            // ── 3. Análise Sintática ─────────────────────────────────────────
+            MyLangParser parser = new MyLangParser(tokens);
+            parser.removeErrorListeners();
+            parser.addErrorListener(new ThrowingErrorListener("Sintático"));
+
+            ParseTree tree = parser.program();
+
+            // ── 4. Geração de P-Code ─────────────────────────────────────────
+            CodeGenerator generator = new CodeGenerator();
+            generator.visit(tree);
+            List<String> code = generator.getCode();
+
+            // ── 5. Escrita do arquivo de saída ───────────────────────────────
+            Path outputPath = Paths.get("src/output/program.pcode");
+            Files.createDirectories(outputPath.getParent());
+            Files.write(outputPath, code);
+
+            System.out.println("✓ Compilação concluída: " + outputPath.toAbsolutePath());
+            System.out.println("── P-Code gerado (" + code.size() + " instruções) ──");
+            code.forEach(System.out::println);
+
+        } catch (IOException e) {
+            System.err.println("Erro de I/O: " + e.getMessage());
+            System.exit(1);
+        } catch (RuntimeException e) {
+            System.err.println("Erro de compilação: " + e.getMessage());
+            System.exit(1);
+        }
+    }
+
+    // ── Listener que lança exceção em vez de só imprimir erros ───────────────
+    private static class ThrowingErrorListener extends BaseErrorListener {
+        private final String phase;
+        ThrowingErrorListener(String phase) { this.phase = phase; }
+
+        @Override
+        public void syntaxError(Recognizer<?, ?> recognizer,
+                                Object offendingSymbol,
+                                int line, int charPositionInLine,
+                                String msg, RecognitionException e) {
+            throw new RuntimeException(
+                    String.format("[Erro %s] linha %d:%d — %s", phase, line, charPositionInLine, msg)
+            );
+        }
+    }
+}

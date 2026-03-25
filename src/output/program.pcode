@@ -1,0 +1,43 @@
+PUSH 5
+STORE x
+PUSH 10
+STORE y
+LOAD x
+LOAD y
+LT
+LOAD x
+PUSH 5
+EQ
+AND
+PUSH 1
+OR
+JMPF L0
+PUSHS "x é menor que y e x é igual a 5 ou verdadeiro"
+PRINT
+L0:
+L1:
+LOAD x
+PUSH 10
+LT
+JMPF L2
+PUSHS "O valor de x é:"
+PRINT
+LOAD x
+PRINT
+LOAD x
+PUSH 1
+ADD
+STORE x
+JMP L1
+L2:
+LOAD x
+LOAD y
+PUSH 12
+PUSH 3
+POW
+PUSH 4
+POW
+MUL
+ADD
+STORE z
+INPUT val
