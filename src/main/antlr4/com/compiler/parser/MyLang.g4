@@ -29,7 +29,7 @@ inputStmt : 'input' '(' ID ')' ';' ;
 
 // Expressões (com precedência explícita via alternativas ordenadas)
 expr
-    : expr '^' expr                                         # exprPow
+    : <assoc=right> expr '^' expr                           # exprPow
     | expr op=('*'|'/')   expr                              # exprMulDiv
     | expr op=('+'|'-')   expr                              # exprAddSub
     | expr op=('<'|'>'|'<='|'>='|'=='|'!=') expr            # exprRel
