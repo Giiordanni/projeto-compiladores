@@ -1,8 +1,6 @@
 var x = 5;
 var y;
 y = 10;
-var a = "ola" + 5;
-print(a);
 
 if (x < y and x == 5 or true) {
     print("x é menor que y e x é igual a 5 ou verdadeiro");
