@@ -14,14 +14,20 @@ Antes de começar, certifique-se de ter instalado em sua máquina:
 Abra o terminal na pasta raiz do projeto e execute o comando abaixo para limpar builds anteriores e gerar o executável:
 
 ```bash
+
 mvn clean package
+
+````
 
 **2. Executar o compilador**
 
 Após a compilação, o arquivo `.jar` será criado dentro da pasta `target`. Para rodar o compilador passando o seu arquivo de código (neste exemplo, `program.txt`), use o comando no terminal:
 
 ```bash
+
 java -jar target/compiler.jar program.txt
+
+```
 
 **3. Resultado**
 

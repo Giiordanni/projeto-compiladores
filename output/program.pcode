@@ -1,0 +1,23 @@
+push $0
+push 5
+sto
+push $1
+push 10
+sto
+push $0
+lod
+push $1
+lod
+let
+push $0
+lod
+push 5
+equ
+and
+push true
+or
+fjp L0
+push "x é menor que y e x é igual a 5 ou verdadeiro"
+out
+L0:
+hlt

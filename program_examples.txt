@@ -1,0 +1,53 @@
+var x = 10;
+var y = 20;
+
+if (x < y) {
+    print(x);
+}
+
+--------------------------
+
+var a = "ola" + 5;
+print(a);
+
+--------------------------
+
+var x = 5;
+var y;
+y = 10;
+if (x < y and x == 5 or true) {
+    print("x é menor que y e x é igual a 5 ou verdadeiro");
+}
+
+--------------------------
+
+var x = 5;
+while (x < 10) {
+    print("O valor de x é:");
+    print(x);
+    x = x + 1;
+}
+
+--------------------------
+
+var x = 5;
+var y;
+y = 10;
+var z;
+z = x + y * 12 ^ 3 ^ 4;
+
+--------------------------
+
+var x = 5;
+var y;
+y = 10;
+var z;
+z = x + y * 12 * 3 * 4;
+print(z);
+
+--------------------------
+
+var val;
+input(val);
+
+--------------------------

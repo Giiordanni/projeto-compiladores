@@ -14,6 +14,8 @@ target/
 .idea/material_theme_project_new.xml
 .idea/dbnavigator.xml
 .idea/.gitignore
+.idea/encodings.xml
+.idea/workspace.xml
 *.iws
 *.iml
 *.ipr

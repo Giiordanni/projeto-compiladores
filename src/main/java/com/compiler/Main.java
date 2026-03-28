@@ -41,10 +41,11 @@ public class Main {
             // Geração de P-Code
             CodeGenerator generator = new CodeGenerator();
             generator.visit(tree);
+            generator.finishProgram();
             List<String> code = generator.getCode();
 
             // Escrita do arquivo de saída
-            Path outputPath = Paths.get("src/output/program.pcode");
+            Path outputPath = Paths.get("output/program.pcode");
             Files.createDirectories(outputPath.getParent());
             Files.write(outputPath, code);
 
